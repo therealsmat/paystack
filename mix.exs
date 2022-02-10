@@ -22,7 +22,7 @@ defmodule Paystack.MixProject do
   defp deps do
     [
       {:mox, "~> 1.0"},
-      {:tesla, "~> 1.4"},
+      {:httpoison, "~> 1.8"},
       {:jason, "~> 1.3"}
     ]
   end
