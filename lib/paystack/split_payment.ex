@@ -1,5 +1,5 @@
 defmodule Paystack.SplitPayment do
-  import Paystack
+  import Paystack.Helpers
 
   @moduledoc """
   The Transaction Splits API enables merchants split the settlement for a transaction across their payout account, and one or more Subaccounts.
