@@ -1,5 +1,5 @@
 defmodule Paystack.Transaction do
-  import Paystack
+  import Paystack.Helpers
 
   @moduledoc """
   The Transactions API allows you create and manage payments on your integration

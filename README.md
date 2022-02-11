@@ -1,21 +1,7 @@
 # Paystack
 
-**TODO: Add description**
+A library for working with [Paystack](https://paystack.com/) in Elixir
+
+[![Hex.pm](https://img.shields.io/hexpm/v/stripity_stripe.svg?maxAge=2592000)](https://hex.pm/packages/stripity_stripe) [![Hex.pm](https://img.shields.io/hexpm/dt/stripity_stripe.svg?maxAge=2592000)](https://hex.pm/packages/stripity_stripe)
 
 ## Installation
-
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `paystack` to your list of dependencies in `mix.exs`:
-
-```elixir
-def deps do
-  [
-    {:paystack, "~> 0.1.0"}
-  ]
-end
-```
-
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at [https://hexdocs.pm/paystack](https://hexdocs.pm/paystack).
-
