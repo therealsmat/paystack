@@ -4,12 +4,15 @@ defmodule Paystack.MixProject do
   def project do
     [
       app: :paystack,
-      version: "0.5.0",
+      version: "0.5.1",
       elixir: "~> 1.12",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
       elixirc_paths: elixirc_paths(Mix.env()),
       name: "Paystack",
+      package: package(),
+      description: "An elixir library for paystack",
+      source_url: "https://github.com/therealsmat/paystack",
       docs: [
         main: "Paystack",
         extras: ["README.md"]
@@ -30,10 +33,21 @@ defmodule Paystack.MixProject do
       {:mox, "~> 1.0"},
       {:httpoison, "~> 1.8"},
       {:jason, "~> 1.3"},
-      {:ex_doc, "~> 0.28.0"}
+      {:ex_doc, "~> 0.28.0", only: :dev, runtime: false}
     ]
   end
 
   defp elixirc_paths(:test), do: ["lib", "test/support"]
   defp elixirc_paths(_), do: ["lib"]
+
+  defp package() do
+    [
+      files: ["lib", "mix.exs", "README.md"],
+      maintainers: ["Tosin Soremekun"],
+      licenses: ["Apache-2.0"],
+      links: %{
+        "Github" => "https://github.com/therealsmat/paystack",
+      }
+    ]
+  end
 end
