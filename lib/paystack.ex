@@ -20,8 +20,5 @@ defmodule Paystack do
     config :paystack, secret_key: System.get_env("PAYSTACK_SECRET_KEY")
     ```
   Your environment variable does not have to be `PAYSTACK_SECRET_KEY`, as the package only depends on the config key.
-
-  ## Telemetry
-  This package fires telemetry events for every paystack api call. The events are listed below:
   """
 end
