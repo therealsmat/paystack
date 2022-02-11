@@ -8,14 +8,14 @@ defmodule Paystack.Api do
     |> handle_response()
   end
 
-  def post(route, body) do
+  def post(route, body \\ %{}) do
     route
     |> paystack_endpoint()
     |> http_client().post(body, http_headers())
     |> handle_response()
   end
 
-  def put(route, body) do
+  def put(route, body \\ %{}) do
     route
     |> paystack_endpoint()
     |> http_client().put(body, http_headers())
