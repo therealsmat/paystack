@@ -1,18 +1,5 @@
 defmodule Paystack do
-  @moduledoc """
-  Documentation for `Paystack`.
-  """
+  @moduledoc false
 
-  @doc """
-  Hello world.
-
-  ## Examples
-
-      iex> Paystack.hello()
-      :world
-
-  """
-  def hello do
-    :world
-  end
+  def paystack(), do: Application.get_env(:paystack, :paystack_api)
 end
