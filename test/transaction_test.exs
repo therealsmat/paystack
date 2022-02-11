@@ -1,6 +1,6 @@
 defmodule PaystackTransactionTest do
+  use PaystackEndpointHelper
   alias Paystack.Transaction
-  use PaystackEndpointTest
 
   test "initialize/1 - makes a post request to the correct paystack endpoint" do
     params = %{ email: "hello@example.com" }

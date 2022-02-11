@@ -1,4 +1,4 @@
-defmodule PaystackEndpointTest do
+defmodule PaystackEndpointHelper do
   # use ExUnit.Case
   @callback assert_get_request_called_with(String.t) :: term
   @callback assert_post_request_called_with(String.t, any()) :: term
@@ -21,6 +21,13 @@ defmodule PaystackEndpointTest do
 
       def assert_post_request_called_with(url, params) do
         PaystackApiMock |> expect(:post, fn route, data ->
+          assert route == url
+          assert data == params
+        end)
+      end
+
+      def assert_put_request_called_with(url, params) do
+        PaystackApiMock |> expect(:put, fn route, data ->
           assert route == url
           assert data == params
         end)
