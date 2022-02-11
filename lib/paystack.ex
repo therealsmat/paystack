@@ -5,12 +5,12 @@ defmodule Paystack do
 
   A library for working with [Paystack](https://paystack.com/) in Elixir
 
-  [![Hex.pm](https://img.shields.io/hexpm/v/stripity_stripe.svg?maxAge=2592000)](https://hex.pm/packages/stripity_stripe) [![Hex.pm](https://img.shields.io/hexpm/dt/stripity_stripe.svg?maxAge=2592000)](https://hex.pm/packages/stripity_stripe)
+  [![Hex.pm](https://img.shields.io/hexpm/v/paystack.svg?maxAge=2592000)](https://hex.pm/packages/paystack) [![Hex.pm](https://img.shields.io/hexpm/dt/paystack.svg?maxAge=2592000)](https://hex.pm/packages/paystack)
 
   ## Installation
   Add paystack to your dependencies list in `mix.exs`
     ```elixir
-    {:#{Mix.Project.config()[:app]}, "~> #{Mix.Project.config()[:version]}"}
+    {:paystack, "~> #{Mix.Project.config()[:version]}"}
     ```
   Then run `mix deps.get`
 

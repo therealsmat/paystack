@@ -4,7 +4,7 @@ defmodule Paystack.MixProject do
   def project do
     [
       app: :paystack,
-      version: "0.5.1",
+      version: "0.5.2",
       elixir: "~> 1.12",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
@@ -15,6 +15,7 @@ defmodule Paystack.MixProject do
       source_url: "https://github.com/therealsmat/paystack",
       docs: [
         main: "Paystack",
+        groups_for_modules: groups_for_modules(),
         extras: ["README.md"]
       ]
     ]
@@ -48,6 +49,18 @@ defmodule Paystack.MixProject do
       links: %{
         "Github" => "https://github.com/therealsmat/paystack",
       }
+    ]
+  end
+
+  defp groups_for_modules() do
+    [
+      "Response": [
+        Paystack.Response
+      ],
+      "Payments & Transactions": [
+        Paystack.Transaction,
+        Paystack.SplitPayment
+      ]
     ]
   end
 end
