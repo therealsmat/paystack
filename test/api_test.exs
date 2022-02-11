@@ -1,4 +1,4 @@
-defmodule PaystackHttpClientTest do
+defmodule PaystackApiTest do
   use ExUnit.Case
   alias Paystack.Api, as: PaystackApi
   alias Paystack.Response
@@ -53,7 +53,7 @@ defmodule PaystackHttpClientTest do
 
       @http |> expect(:post, fn url, body, headers ->
         assert url == "http://example.com/charge"
-        assert body == %{currency: "NGN", amount: "800", name: "Amala skye"}
+        assert Jason.decode!(body) == %{"currency" => "NGN", "amount" => "800", "name" => "Amala skye"}
         assert Enum.sort(headers) == Enum.sort([{:Accept, "Application/json"}, {:Authorization, "Bearer 12345678"}])
         success_response(200)
       end)
@@ -93,7 +93,7 @@ defmodule PaystackHttpClientTest do
 
       @http |> expect(:put, fn url, body, headers ->
         assert url == "http://example.com/charge/1"
-        assert body == %{name: "Amala skye"}
+        assert Jason.decode!(body) == %{"name" => "Amala skye"}
         assert Enum.sort(headers) == Enum.sort([{:Accept, "Application/json"}, {:Authorization, "Bearer 12345678"}])
         success_response(200)
       end)

@@ -1,23 +1,38 @@
+defmodule Paystack.Api.Behaviour do
+  @type paystack_response() :: {:error, any} | {:ok, Paystack.Response.t}
+
+  @callback get(String.t) :: paystack_response()
+  @callback post(String.t) :: paystack_response()
+  @callback post(String.t, map()) :: paystack_response()
+  @callback put(String.t) :: paystack_response()
+  @callback put(String.t, map()) :: paystack_response()
+end
+
 defmodule Paystack.Api do
+  @behaviour __MODULE__.Behaviour
   alias Paystack.Response
 
+  @impl true
   def get(route) do
-    route
-    |> paystack_endpoint()
+    paystack_endpoint(route)
     |> http_client().get(http_headers())
     |> handle_response()
   end
 
+  @impl true
   def post(route, body \\ %{}) do
-    route
-    |> paystack_endpoint()
+    body = Jason.encode!(body)
+
+    paystack_endpoint(route)
     |> http_client().post(body, http_headers())
     |> handle_response()
   end
 
+  @impl true
   def put(route, body \\ %{}) do
-    route
-    |> paystack_endpoint()
+    body = Jason.encode!(body)
+
+    paystack_endpoint(route)
     |> http_client().put(body, http_headers())
     |> handle_response()
   end
