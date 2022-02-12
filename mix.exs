@@ -13,7 +13,7 @@ defmodule Paystack.MixProject do
       package: [
         files: ["lib", "mix.exs", "README.md"],
         maintainers: ["Tosin Soremekun"],
-        licenses: ["Apache-2.0"],
+        licenses: ["MIT"],
         links: %{
           "Github" => "https://github.com/therealsmat/paystack",
         }
