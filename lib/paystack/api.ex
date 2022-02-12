@@ -15,6 +15,7 @@ defmodule Paystack.Api do
 
   @behaviour __MODULE__.Behaviour
   alias Paystack.Response
+  import Paystack.Helpers, only: [base_url: 0, http_client: 0]
 
   @impl true
   def get(route) do
@@ -57,11 +58,7 @@ defmodule Paystack.Api do
   end
 
   defp paystack_endpoint(route) do
-    Application.get_env(:paystack, :base_url) <> route
-  end
-
-  defp http_client() do
-    Application.get_env(:paystack, :http_client)
+    base_url() <> route
   end
 
   defp http_headers() do

@@ -10,7 +10,14 @@ defmodule Paystack.MixProject do
       deps: deps(),
       elixirc_paths: elixirc_paths(Mix.env()),
       name: "Paystack",
-      package: package(),
+      package: [
+        files: ["lib", "mix.exs", "README.md"],
+        maintainers: ["Tosin Soremekun"],
+        licenses: ["Apache-2.0"],
+        links: %{
+          "Github" => "https://github.com/therealsmat/paystack",
+        }
+      ],
       description: "An elixir library for paystack",
       source_url: "https://github.com/therealsmat/paystack",
       docs: [
@@ -41,23 +48,12 @@ defmodule Paystack.MixProject do
   defp elixirc_paths(:test), do: ["lib", "test/support"]
   defp elixirc_paths(_), do: ["lib"]
 
-  defp package() do
-    [
-      files: ["lib", "mix.exs", "README.md"],
-      maintainers: ["Tosin Soremekun"],
-      licenses: ["Apache-2.0"],
-      links: %{
-        "Github" => "https://github.com/therealsmat/paystack",
-      }
-    ]
-  end
-
   defp groups_for_modules() do
     [
       "Response": [
         Paystack.Response
       ],
-      "Payments & Transactions": [
+      "Core": [
         Paystack.Transaction,
         Paystack.SplitPayment
       ]

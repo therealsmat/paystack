@@ -3,6 +3,8 @@ defmodule Paystack.SplitPayment do
 
   @moduledoc """
   The Transaction Splits API enables merchants split the settlement for a transaction across their payout account, and one or more Subaccounts.
+
+  https://paystack.com/docs/api/#split
   """
 
   @type paystack_response() :: {:ok, Paystack.Response.t()} | {:error, any}
