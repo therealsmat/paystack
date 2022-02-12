@@ -2,7 +2,9 @@ defmodule Paystack.Transaction do
   import Paystack.Helpers
 
   @moduledoc """
-  The Transactions API allows you create and manage payments on your integration
+  The Transactions API allows you create and manage payments on your integration.
+
+  https://paystack.com/docs/api/#transaction
   """
 
   @type paystack_response() :: {:ok, Paystack.Response.t()} | {:error, any}
