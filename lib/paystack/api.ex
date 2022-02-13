@@ -19,27 +19,45 @@ defmodule Paystack.Api do
 
   @impl true
   def get(route) do
-    paystack_endpoint(route)
-    |> http_client().get(http_headers())
-    |> handle_response()
+    with_telemetry(
+      route,
+      :get,
+      fn ->
+        paystack_endpoint(route)
+        |> http_client().get(http_headers())
+        |> handle_response()
+      end
+    )
   end
 
   @impl true
   def post(route, body \\ %{}) do
     body = Jason.encode!(body)
 
-    paystack_endpoint(route)
-    |> http_client().post(body, http_headers())
-    |> handle_response()
+    with_telemetry(
+      route,
+      :post,
+      fn ->
+        paystack_endpoint(route)
+        |> http_client().post(body, http_headers())
+        |> handle_response()
+      end
+    )
   end
 
   @impl true
   def put(route, body \\ %{}) do
     body = Jason.encode!(body)
 
-    paystack_endpoint(route)
-    |> http_client().put(body, http_headers())
-    |> handle_response()
+    with_telemetry(
+      route,
+      :put,
+      fn ->
+        paystack_endpoint(route)
+        |> http_client().put(body, http_headers())
+        |> handle_response()
+      end
+    )
   end
 
   defp handle_response({:ok, %HTTPoison.Response{body: body, status_code: status_code}}) do
@@ -66,5 +84,22 @@ defmodule Paystack.Api do
       "Authorization": "Bearer #{Application.get_env(:paystack, :secret_key)}",
       "Accept": "Application/json"
     ]
+  end
+
+  defp with_telemetry(route, request_type, fun) do
+    :telemetry.span(
+      [:paystack, :request],
+      %{},
+      fn ->
+        case fun.() do
+          {response_type, %{status_code: status_code}} = response ->
+            meta = %{ url: route, request_type: request_type, response_type: response_type, status_code: status_code }
+            {response, meta}
+          _ = response ->
+            meta = %{ url: route, request_type: request_type, response_type: :error, status_code: nil }
+            {response, meta}
+        end
+      end
+    )
   end
 end

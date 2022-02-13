@@ -41,6 +41,7 @@ defmodule Paystack.MixProject do
       {:mox, "~> 1.0"},
       {:httpoison, "~> 1.8"},
       {:jason, "~> 1.3"},
+      {:telemetry, "~> 1.0"},
       {:ex_doc, "~> 0.28.0", only: :dev, runtime: false}
     ]
   end
