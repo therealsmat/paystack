@@ -5,12 +5,12 @@ defmodule Paystack do
 
   A library for working with [Paystack](https://paystack.com/) in Elixir
 
-  [![Hex.pm](https://img.shields.io/hexpm/v/stripity_stripe.svg?maxAge=2592000)](https://hex.pm/packages/stripity_stripe) [![Hex.pm](https://img.shields.io/hexpm/dt/stripity_stripe.svg?maxAge=2592000)](https://hex.pm/packages/stripity_stripe)
+  [![Hex.pm](https://img.shields.io/hexpm/v/paystack.svg?maxAge=2592000)](https://hex.pm/packages/paystack) [![Hex.pm](https://img.shields.io/hexpm/dt/paystack.svg?maxAge=2592000)](https://hex.pm/packages/paystack)
 
   ## Installation
   Add paystack to your dependencies list in `mix.exs`
     ```elixir
-    {:#{Mix.Project.config()[:app]}, "~> #{Mix.Project.config()[:version]}"}
+    {:paystack, "~> #{Mix.Project.config()[:version]}"}
     ```
   Then run `mix deps.get`
 
@@ -20,5 +20,56 @@ defmodule Paystack do
     config :paystack, secret_key: System.get_env("PAYSTACK_SECRET_KEY")
     ```
   Your environment variable does not have to be `PAYSTACK_SECRET_KEY`, as the package only depends on the config key.
+
+  ## Response
+  This package returns responses in the format of `{:ok, Paystack.Response{}} | {:error, any}`. This means a successful request would look like this;
+
+      iex> Paystack.Transaction.initialize(%{ email: "customer@email.com", amount: "20000" })
+      {:ok,
+        %Paystack.Response{
+        data: %{
+          "access_code" => "0peioxfhpn",
+          "authorization_url" => "https://checkout.paystack.com/0peioxfhpn",
+          "reference" => "7PVGX8MEk85tgeEpVDtD"
+        },
+        message: "Authorization URL created",
+        meta: nil,
+        status_code: 200,
+        success: true
+      }}
+
+  An unsuccessful response would look like this;
+
+      iex> Paystack.Transaction.initialize(%{ email: "customer@email.com", amount: "20000" })
+      {:ok,
+        %Paystack.Response{
+          data: nil,
+          message: "Invalid key",
+          meta: nil,
+          status_code: 401,
+          success: false
+        }}
+
+  while an unexpected response would look like this.
+
+      iex> Paystack.Transaction.initialize(%{ email: "customer@email.com", amount: "20000" })
+      {:error, :nxdomain}
+
+  ## Telemetry
+  This library executes the following telemetry events:
+  * `[:paystack, :request, :start]` - Executed before sending a request
+
+  #### Measurements
+    * `system_time` - The system time
+
+  * `[:paystack, :request, :stop]` - Executed after sending the final response
+  #### Measurements
+    * `duration` - The system time in `:native` unit
+  #### Metadata
+    * `url` - The paystack url requested
+    * `request_type` - The http request type (`:get`, `:post`, or `:put`)
+    * `status_code` - The http response status code e.g `201`, `400`, `401`, e.t.c.
+    * `response_type` - The library's response type (`:ok` or `:error`)
+  Happy coding!
   """
 end

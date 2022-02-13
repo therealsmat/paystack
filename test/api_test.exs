@@ -41,8 +41,27 @@ defmodule PaystackApiTest do
         failed_response("Destination unreachable")
       end)
 
-      assert {:error, response} = PaystackApi.get("/products")
+      assert {:error, response} = PaystackApi.get("/product")
       assert response == "Destination unreachable"
+    end
+
+    test "fires appropriate telemetry event" do
+      ref = assert_telemetry_is_executed(fn measurements, meta ->
+        assert meta.url == "/product"
+        assert meta.request_type == :get
+        assert meta.status_code == 201
+        assert meta.response_type == :ok
+      end)
+
+      @http |> expect(:get, fn _, _ ->
+        success_response(201, ~s<{"status": true, "message": "Authorization URL created"}>)
+      end)
+
+      assert {:ok, _} = PaystackApi.get("/product")
+      assert_receive {^ref, :start}
+      assert_receive {^ref, :stop}
+
+      :telemetry.detach("assert_telemetry_is_executed")
     end
   end
 
@@ -84,6 +103,25 @@ defmodule PaystackApiTest do
       assert {:error, response} = PaystackApi.post("/charge")
       assert response == "Destination unreachable"
     end
+
+    test "fires appropriate telemetry event" do
+      ref = assert_telemetry_is_executed(fn measurements, meta ->
+        assert meta.url == "/charge"
+        assert meta.request_type == :post
+        assert meta.status_code == 201
+        assert meta.response_type == :ok
+      end)
+
+      @http |> expect(:post, fn _, _, _ ->
+        success_response(201, ~s<{"status": true, "message": "Authorization URL created"}>)
+      end)
+
+      assert {:ok, _} = PaystackApi.post("/charge", %{name: "Amala skye"})
+      assert_receive {^ref, :start}
+      assert_receive {^ref, :stop}
+
+      :telemetry.detach("assert_telemetry_is_executed")
+    end
   end
 
   describe "put/2" do
@@ -120,6 +158,25 @@ defmodule PaystackApiTest do
       assert {:error, response} = PaystackApi.put("/charge")
       assert response == "Destination unreachable"
     end
+
+    test "fires appropriate telemetry event" do
+      ref = assert_telemetry_is_executed(fn measurements, meta ->
+        assert meta.url == "/charge"
+        assert meta.request_type == :put
+        assert meta.status_code == 201
+        assert meta.response_type == :ok
+      end)
+
+      @http |> expect(:put, fn _, _, _ ->
+        success_response(201, ~s<{"status": true, "message": "Authorization URL created"}>)
+      end)
+
+      assert {:ok, _} = PaystackApi.put("/charge", %{name: "Amala skye"})
+      assert_receive {^ref, :start}
+      assert_receive {^ref, :stop}
+
+      :telemetry.detach("assert_telemetry_is_executed")
+    end
   end
 
   defp success_response(status_code, data \\ nil) do
@@ -134,5 +191,36 @@ defmodule PaystackApiTest do
 
   defp failed_response(reason) do
     {:error, %HTTPoison.Error{reason: reason}}
+  end
+
+  @spec assert_telemetry_is_executed(fun) :: String.t
+  defp assert_telemetry_is_executed(custom_assertions) do
+    {function_name, _arity} = __ENV__.function
+      parent = self()
+      ref = make_ref()
+
+      handler = fn event, measurements, meta, _ ->
+        case event do
+          [:paystack, :request, :start] ->
+            refute measurements.system_time == nil
+            send(parent, {ref, :start})
+          [:paystack, :request, :stop] ->
+            refute measurements.duration == nil
+            custom_assertions.(measurements, meta)
+            send(parent, {ref, :stop})
+        end
+      end
+
+      :telemetry.attach_many(
+        to_string(function_name),
+        [
+          [:paystack, :request, :start],
+          [:paystack, :request, :stop],
+        ],
+        handler,
+        nil
+      )
+
+    ref
   end
 end
