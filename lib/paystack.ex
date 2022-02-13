@@ -55,6 +55,21 @@ defmodule Paystack do
       iex> Paystack.Transaction.initialize(%{ email: "customer@email.com", amount: "20000" })
       {:error, :nxdomain}
 
+  ## Telemetry
+  This library executes the following telemetry events:
+  * `[:paystack, :request, :start]` - Executed before sending a request
+
+  #### Measurements
+    * `system_time` - The system time
+
+  * `[:paystack, :request, :stop]` - Executed after sending the final response
+  #### Measurements
+    * `duration` - The system time in `:native` unit
+  #### Metadata
+    * `url` - The paystack url requested
+    * `request_type` - The http request type (`:get`, `:post`, or `:put`)
+    * `status_code` - The http response status code e.g `201`, `400`, `401`, e.t.c.
+    * `response_type` - The library's response type (`:ok` or `:error`)
   Happy coding!
   """
 end

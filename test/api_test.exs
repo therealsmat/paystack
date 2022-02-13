@@ -51,7 +51,6 @@ defmodule PaystackApiTest do
         assert meta.request_type == :get
         assert meta.status_code == 201
         assert meta.response_type == :ok
-        refute measurements.duration == nil
       end)
 
       @http |> expect(:get, fn _, _ ->
@@ -111,7 +110,6 @@ defmodule PaystackApiTest do
         assert meta.request_type == :post
         assert meta.status_code == 201
         assert meta.response_type == :ok
-        refute measurements.duration == nil
       end)
 
       @http |> expect(:post, fn _, _, _ ->
@@ -167,7 +165,6 @@ defmodule PaystackApiTest do
         assert meta.request_type == :put
         assert meta.status_code == 201
         assert meta.response_type == :ok
-        refute measurements.duration == nil
       end)
 
       @http |> expect(:put, fn _, _, _ ->
@@ -205,8 +202,10 @@ defmodule PaystackApiTest do
       handler = fn event, measurements, meta, _ ->
         case event do
           [:paystack, :request, :start] ->
+            refute measurements.system_time == nil
             send(parent, {ref, :start})
           [:paystack, :request, :stop] ->
+            refute measurements.duration == nil
             custom_assertions.(measurements, meta)
             send(parent, {ref, :stop})
         end
