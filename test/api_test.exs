@@ -46,7 +46,7 @@ defmodule PaystackApiTest do
     end
 
     test "fires appropriate telemetry event" do
-      ref = assert_telemetry_is_fired(fn measurements, meta ->
+      ref = assert_telemetry_is_executed(fn measurements, meta ->
         assert meta.url == "/product"
         assert meta.request_type == :get
         assert meta.status_code == 201
@@ -62,7 +62,7 @@ defmodule PaystackApiTest do
       assert_receive {^ref, :start}
       assert_receive {^ref, :stop}
 
-      :telemetry.detach("assert_telemetry_is_fired")
+      :telemetry.detach("assert_telemetry_is_executed")
     end
   end
 
@@ -106,7 +106,7 @@ defmodule PaystackApiTest do
     end
 
     test "fires appropriate telemetry event" do
-      ref = assert_telemetry_is_fired(fn measurements, meta ->
+      ref = assert_telemetry_is_executed(fn measurements, meta ->
         assert meta.url == "/charge"
         assert meta.request_type == :post
         assert meta.status_code == 201
@@ -122,7 +122,7 @@ defmodule PaystackApiTest do
       assert_receive {^ref, :start}
       assert_receive {^ref, :stop}
 
-      :telemetry.detach("assert_telemetry_is_fired")
+      :telemetry.detach("assert_telemetry_is_executed")
     end
   end
 
@@ -162,7 +162,7 @@ defmodule PaystackApiTest do
     end
 
     test "fires appropriate telemetry event" do
-      ref = assert_telemetry_is_fired(fn measurements, meta ->
+      ref = assert_telemetry_is_executed(fn measurements, meta ->
         assert meta.url == "/charge"
         assert meta.request_type == :put
         assert meta.status_code == 201
@@ -178,7 +178,7 @@ defmodule PaystackApiTest do
       assert_receive {^ref, :start}
       assert_receive {^ref, :stop}
 
-      :telemetry.detach("assert_telemetry_is_fired")
+      :telemetry.detach("assert_telemetry_is_executed")
     end
   end
 
@@ -196,8 +196,8 @@ defmodule PaystackApiTest do
     {:error, %HTTPoison.Error{reason: reason}}
   end
 
-  @spec assert_telemetry_is_fired(fun) :: String.t
-  defp assert_telemetry_is_fired(custom_assertions) do
+  @spec assert_telemetry_is_executed(fun) :: String.t
+  defp assert_telemetry_is_executed(custom_assertions) do
     {function_name, _arity} = __ENV__.function
       parent = self()
       ref = make_ref()
