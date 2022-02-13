@@ -4,7 +4,7 @@ defmodule Paystack.MixProject do
   def project do
     [
       app: :paystack,
-      version: "0.5.2",
+      version: "0.6.0",
       elixir: "~> 1.12",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
