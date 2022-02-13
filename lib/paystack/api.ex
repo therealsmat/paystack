@@ -86,6 +86,7 @@ defmodule Paystack.Api do
     ]
   end
 
+  @spec with_telemetry(String.t, atom, function) :: {:error, any} | {:ok, Response.t}
   defp with_telemetry(route, request_type, fun) do
     :telemetry.span(
       [:paystack, :request],
