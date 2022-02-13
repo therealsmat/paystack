@@ -1,6 +1,7 @@
 # Paystack :dollar::dollar:
 
 A library for working with [Paystack](https://paystack.com/) in Elixir with out of the box support for telemetry events.
+
 Comprehensive documentation available on [HexDocs](https://hex.pm/packages/paystack)
 
 ### Requirements
@@ -27,25 +28,25 @@ Run `mix test`
 MIT
 
 ### TODO
-[x] Transactions 
-[x] Transaction Splits
-[x] Customers
-[ ] Dedicated Virtual Accounts
-[ ] Apple Pay
-[ ] Sub Accounts
-[ ] Plans
-[ ] Subscriptions
-[ ] Products
-[ ] Payment Pages
-[ ] Invoices
-[ ] Settlements
-[ ] Transfer Recipients
-[ ] Transfers
-[ ] Transfer Control
-[ ] Bulk Charges
-[ ] Control Panel
-[ ] Charge
-[ ] Disputes
-[ ] Refunds
-[ ] Verification
-[ ] Miscellaneous
+- [x] Transactions
+- [x] Transaction Splits
+- [x] Customers
+- [ ] Dedicated Virtual Accounts
+- [ ] Apple Pay
+- [ ] Sub Accounts
+- [ ] Plans
+- [ ] Subscriptions
+- [ ] Products
+- [ ] Payment Pages
+- [ ] Invoices
+- [ ] Settlements
+- [ ] Transfer Recipients
+- [ ] Transfers
+- [ ] Transfer Control
+- [ ] Bulk Charges
+- [ ] Control Panel
+- [ ] Charge
+- [ ] Disputes
+- [ ] Refunds
+- [ ] Verification
+- [ ] Miscellaneous
