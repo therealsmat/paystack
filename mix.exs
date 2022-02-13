@@ -55,7 +55,8 @@ defmodule Paystack.MixProject do
       ],
       "Core": [
         Paystack.Transaction,
-        Paystack.SplitPayment
+        Paystack.SplitPayment,
+        Paystack.Customer
       ]
     ]
   end
