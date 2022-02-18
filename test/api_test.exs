@@ -46,7 +46,7 @@ defmodule PaystackApiTest do
     end
 
     test "fires appropriate telemetry event" do
-      ref = assert_telemetry_is_executed(fn measurements, meta ->
+      ref = assert_telemetry_is_executed(fn _measurements, meta ->
         assert meta.url == "/product"
         assert meta.request_type == :get
         assert meta.status_code == 201
@@ -105,7 +105,7 @@ defmodule PaystackApiTest do
     end
 
     test "fires appropriate telemetry event" do
-      ref = assert_telemetry_is_executed(fn measurements, meta ->
+      ref = assert_telemetry_is_executed(fn _measurements, meta ->
         assert meta.url == "/charge"
         assert meta.request_type == :post
         assert meta.status_code == 201
@@ -160,7 +160,7 @@ defmodule PaystackApiTest do
     end
 
     test "fires appropriate telemetry event" do
-      ref = assert_telemetry_is_executed(fn measurements, meta ->
+      ref = assert_telemetry_is_executed(fn _measurements, meta ->
         assert meta.url == "/charge"
         assert meta.request_type == :put
         assert meta.status_code == 201
@@ -172,6 +172,62 @@ defmodule PaystackApiTest do
       end)
 
       assert {:ok, _} = PaystackApi.put("/charge", %{name: "Amala skye"})
+      assert_receive {^ref, :start}
+      assert_receive {^ref, :stop}
+
+      :telemetry.detach("assert_telemetry_is_executed")
+    end
+  end
+
+  describe "delete/2" do
+    test "makes request with the correct configuration" do
+      Application.put_env(:paystack, :base_url, "http://example.com")
+      Application.put_env(:paystack, :secret_key, "12345678")
+
+      @http |> expect(:request, fn :delete, url, body, headers ->
+        assert url == "http://example.com/dedicated_account/split"
+        assert Jason.decode!(body) == %{ "account_number" => "0033322211" }
+        assert Enum.sort(headers) == Enum.sort([{:Accept, "Application/json"}, {:Authorization, "Bearer 12345678"}])
+        success_response(200)
+      end)
+
+      assert {:ok, _} = PaystackApi.delete("/dedicated_account/split", %{ account_number: "0033322211" })
+    end
+
+    test "responds with correct paystack data" do
+      @http |> expect(:request, fn _, _, _, _ ->
+        success_response(200, ~s<{"status": "success", "message": "Subaccount unassigned"}>)
+      end)
+
+    {:ok, %Response{} = response} = PaystackApi.delete("/dedicated_account/split", %{ account_number: "0033322211" })
+
+    assert response.success == true
+    assert response.message == "Subaccount unassigned"
+    assert response.status_code == 200
+    assert response.data == nil
+    end
+
+    test "responds gracefully when there is an unknown error" do
+      @http |> expect(:request, fn :delete, _, _, _ -> failed_response("Destination unreachable") end)
+
+      assert {:error, response} = PaystackApi.delete("/charge")
+      assert response == "Destination unreachable"
+    end
+
+    test "fires appropriate telemetry event" do
+      ref = assert_telemetry_is_executed(fn _measurements, meta ->
+        assert meta.url == "/dedicated_account/split"
+        assert meta.request_type == :delete
+        assert meta.status_code == 201
+        assert meta.response_type == :ok
+      end)
+
+      @http
+      |> expect(:request, fn :delete, _, _, _ ->
+        success_response(201, ~s<{"status": "success", "message": "Subaccount unassigned"}>)
+      end)
+
+      assert {:ok, _} = PaystackApi.delete("/dedicated_account/split", %{ account_number: "0033322211" })
       assert_receive {^ref, :start}
       assert_receive {^ref, :stop}
 

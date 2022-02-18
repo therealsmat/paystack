@@ -8,6 +8,8 @@ defmodule Paystack.Api.Behaviour do
   @callback post(String.t, map()) :: paystack_response()
   @callback put(String.t) :: paystack_response()
   @callback put(String.t, map()) :: paystack_response()
+  @callback delete(String.t) :: paystack_response()
+  @callback delete(String.t, map()) :: paystack_response()
 end
 
 defmodule Paystack.Api do
@@ -60,11 +62,32 @@ defmodule Paystack.Api do
     )
   end
 
+  @impl true
+  def delete(route, body \\ %{}) do
+    body = Jason.encode!(body)
+
+    with_telemetry(
+      route,
+      :delete,
+      fn ->
+        # We use the request for HTTPoison because the default
+        # `:post` does not support passing body...
+        http_client().request(
+          :delete,
+          paystack_endpoint(route),
+          body,
+          http_headers()
+        )
+        |> handle_response()
+      end
+    )
+  end
+
   defp handle_response({:ok, %HTTPoison.Response{body: body, status_code: status_code}}) do
     body = Jason.decode!(body)
     {:ok, %Response{
       data: Map.get(body, "data"),
-      success: Map.get(body, "status"),
+      success: success_response?(Map.get(body, "status")),
       message: Map.get(body, "message"),
       meta: Map.get(body, "meta"),
       status_code: status_code
@@ -84,6 +107,14 @@ defmodule Paystack.Api do
       "Authorization": "Bearer #{Application.get_env(:paystack, :secret_key)}",
       "Accept": "Application/json"
     ]
+  end
+
+  defp success_response?(status) do
+    case status do
+      true -> true
+      "success" -> true
+      _ -> false
+    end
   end
 
   @spec with_telemetry(String.t, atom, function) :: {:error, any} | {:ok, Response.t}
