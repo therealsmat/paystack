@@ -8,7 +8,7 @@ defmodule PaystackSplitPaymentTest do
     SplitPayment.create(params)
   end
 
-  test "list- makes a get request to the correct paystack endpoint" do
+  test "list - makes a get request to the correct paystack endpoint" do
     assert_get_request_called_with("/split")
     SplitPayment.list()
 

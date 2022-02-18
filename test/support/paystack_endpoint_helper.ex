@@ -33,6 +33,19 @@ defmodule PaystackEndpointHelper do
         end)
       end
 
+      def assert_delete_request_called_with(url) do
+        PaystackApiMock |> expect(:delete, fn route ->
+          assert route == url
+        end)
+      end
+
+      def assert_delete_request_called_with(url, params) do
+        PaystackApiMock |> expect(:delete, fn route, data ->
+          assert route == url
+          assert data == params
+        end)
+      end
+
       defoverridable []
     end
   end
