@@ -3,6 +3,8 @@ defmodule Paystack.Plan do
 
   @moduledoc """
   The Plans API allows you create and manage installment payment options on your integration
+
+  https://paystack.com/docs/api/#plan
   """
 
   @doc """
