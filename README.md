@@ -31,10 +31,10 @@ MIT
 - [x] Transactions
 - [x] Transaction Splits
 - [x] Customers
-- [ ] Dedicated Virtual Accounts
-- [ ] Apple Pay
-- [ ] Sub Accounts
-- [ ] Plans
+- [x] Dedicated Virtual Accounts
+- [x] Apple Pay
+- [x] Sub Accounts
+- [x] Plans
 - [ ] Subscriptions
 - [ ] Products
 - [ ] Payment Pages

@@ -4,6 +4,8 @@ defmodule Paystack.SubAccount do
   @moduledoc """
   The Subaccounts API allows you create and manage subaccounts on your integration.
   Subaccounts can be used to split payment between two accounts (your main account and a sub account)
+
+  https://paystack.com/docs/api/#subaccount
   """
 
   @doc """
