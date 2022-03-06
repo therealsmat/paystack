@@ -19,6 +19,8 @@ defmodule Paystack.Api do
   alias Paystack.Response
   import Paystack.Helpers, only: [base_url: 0, http_client: 0]
 
+  @type t :: {:ok, Response.t()} | {:error, any}
+
   @impl true
   def get(route) do
     with_telemetry(
@@ -117,7 +119,7 @@ defmodule Paystack.Api do
     end
   end
 
-  @spec with_telemetry(String.t, atom, function) :: {:error, any} | {:ok, Response.t}
+  @spec with_telemetry(String.t, atom, function) :: t()
   defp with_telemetry(route, request_type, fun) do
     :telemetry.span(
       [:paystack, :request],
