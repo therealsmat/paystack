@@ -35,8 +35,8 @@ MIT
 - [x] Apple Pay
 - [x] Sub Accounts
 - [x] Plans
-- [ ] Subscriptions
-- [ ] Products
+- [x] Subscriptions
+- [x] Products
 - [ ] Payment Pages
 - [ ] Invoices
 - [ ] Settlements
