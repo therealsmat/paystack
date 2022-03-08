@@ -26,6 +26,11 @@ defmodule PaystackEndpointHelper do
         end)
       end
 
+      def assert_post_request_called_with(url) do
+        PaystackApiMock
+        |> expect(:post, fn route -> assert route == url end)
+      end
+
       def assert_put_request_called_with(url, params) do
         PaystackApiMock |> expect(:put, fn route, data ->
           assert route == url
