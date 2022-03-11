@@ -37,8 +37,8 @@ MIT
 - [x] Plans
 - [x] Subscriptions
 - [x] Products
-- [ ] Payment Pages
-- [ ] Invoices
+- [x] Payment Pages
+- [x] Invoices
 - [ ] Settlements
 - [ ] Transfer Recipients
 - [ ] Transfers
