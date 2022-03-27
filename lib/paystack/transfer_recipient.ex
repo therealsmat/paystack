@@ -1,6 +1,12 @@
 defmodule Paystack.TransferRecipient do
   import Paystack.Helpers, only: [paystack: 0]
 
+  @moduledoc """
+  The Transfer Recipients API allows you create and manage beneficiaries that you send money to
+
+  https://paystack.com/docs/api/#transfer-recipient
+  """
+
   @doc """
   Creates a new recipient. A duplicate account number will lead to the retrieval of the existing record.
   """

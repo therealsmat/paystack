@@ -39,9 +39,9 @@ MIT
 - [x] Products
 - [x] Payment Pages
 - [x] Invoices
-- [ ] Settlements
-- [ ] Transfer Recipients
-- [ ] Transfers
+- [x] Settlements
+- [x] Transfer Recipients
+- [x] Transfers
 - [ ] Transfer Control
 - [ ] Bulk Charges
 - [ ] Control Panel
