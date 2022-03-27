@@ -8,6 +8,7 @@ defmodule Paystack.MixProject do
       elixir: "~> 1.12",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
+      test_coverage: [tool: ExCoveralls],
       elixirc_paths: elixirc_paths(Mix.env()),
       name: "Paystack",
       package: [
@@ -42,7 +43,8 @@ defmodule Paystack.MixProject do
       {:httpoison, "~> 1.8"},
       {:jason, "~> 1.3"},
       {:telemetry, "~> 1.0"},
-      {:ex_doc, "~> 0.28.0", only: :dev, runtime: false}
+      {:ex_doc, "~> 0.28.0", only: :dev, runtime: false},
+      {:excoveralls, "~> 0.14.4"}
     ]
   end
 

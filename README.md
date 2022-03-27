@@ -2,6 +2,8 @@
 
 A library for working with [Paystack](https://paystack.com/) in Elixir with out of the box support for telemetry events.
 
+[![Coverage Status](https://coveralls.io/repos/github/therealsmat/paystack/badge.svg?branch=master)](https://coveralls.io/github/therealsmat/paystack?branch=master)
+
 Comprehensive documentation available on [HexDocs](https://hex.pm/packages/paystack)
 
 ### Requirements
