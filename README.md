@@ -104,8 +104,8 @@ MIT
 - [x] Transfers
 - [x] Transfer Control
 - [x] Bulk Charges
-- [ ] Control Panel
-- [ ] Charge
+- [x] Control Panel
+- [x] Charge
 - [ ] Disputes
 - [ ] Refunds
 - [ ] Verification
