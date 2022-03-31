@@ -102,8 +102,8 @@ MIT
 - [x] Settlements
 - [x] Transfer Recipients
 - [x] Transfers
-- [ ] Transfer Control
-- [ ] Bulk Charges
+- [x] Transfer Control
+- [x] Bulk Charges
 - [ ] Control Panel
 - [ ] Charge
 - [ ] Disputes
