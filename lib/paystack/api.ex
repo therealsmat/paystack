@@ -1,6 +1,4 @@
 defmodule Paystack.Api.Behaviour do
-  @moduledoc false
-
   @type paystack_response() :: {:error, any} | {:ok, Paystack.Response.t}
 
   @callback get(String.t) :: paystack_response()
