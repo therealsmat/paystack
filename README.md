@@ -106,7 +106,7 @@ MIT
 - [x] Bulk Charges
 - [x] Control Panel
 - [x] Charge
-- [ ] Disputes
-- [ ] Refunds
-- [ ] Verification
-- [ ] Miscellaneous
+- [x] Disputes
+- [x] Refunds
+- [x] Verification
+- [x] Miscellaneous
