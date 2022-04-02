@@ -17,7 +17,6 @@ defmodule Paystack.Api do
 
   @type t :: {:ok, Response.t()} | {:error, any}
 
-  @impl true
   def get(route) do
     with_telemetry(
       route,
@@ -30,7 +29,6 @@ defmodule Paystack.Api do
     )
   end
 
-  @impl true
   def post(route, body \\ %{}) do
     body = Jason.encode!(body)
 
@@ -45,7 +43,6 @@ defmodule Paystack.Api do
     )
   end
 
-  @impl true
   def put(route, body \\ %{}) do
     body = Jason.encode!(body)
 
@@ -60,7 +57,6 @@ defmodule Paystack.Api do
     )
   end
 
-  @impl true
   def delete(route, body \\ %{}) do
     body = Jason.encode!(body)
 
