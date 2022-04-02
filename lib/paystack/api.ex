@@ -13,8 +13,6 @@ defmodule Paystack.Api.Behaviour do
 end
 
 defmodule Paystack.Api do
-  @moduledoc false
-
   @behaviour __MODULE__.Behaviour
   alias Paystack.Response
   import Paystack.Helpers, only: [base_url: 0, http_client: 0]
