@@ -4,7 +4,7 @@ defmodule Paystack.MixProject do
   def project do
     [
       app: :paystack,
-      version: "0.6.0",
+      version: "0.7.0",
       elixir: "~> 1.12",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
@@ -53,13 +53,33 @@ defmodule Paystack.MixProject do
 
   defp groups_for_modules() do
     [
-      "Response": [
-        Paystack.Response
-      ],
+      "Response": [Paystack.Response],
+      "Api": [Paystack.Api],
       "Core": [
         Paystack.Transaction,
+        Paystack.Transfer,
+        Paystack.Customer,
+        Paystack.BulkCharge,
+        Paystack.Charge
+      ],
+      "Other": [
         Paystack.SplitPayment,
-        Paystack.Customer
+        Paystack.DedicatedAccount,
+        Paystack.ApplePay,
+        Paystack.SubAccount,
+        Paystack.Plan,
+        Paystack.Subscription,
+        Paystack.Product,
+        Paystack.PaymentPage,
+        Paystack.Invoice,
+        Paystack.Settlement,
+        Paystack.TransferRecipient,
+        Paystack.TransferControl,
+        Paystack.ControlPanel,
+        Paystack.Dispute,
+        Paystack.Refund,
+        Paystack.Verification,
+        Paystack.Miscellanous
       ]
     ]
   end
