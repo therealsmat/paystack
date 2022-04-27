@@ -16,7 +16,7 @@ defmodule Paystack.MixProject do
         maintainers: ["Tosin Soremekun"],
         licenses: ["MIT"],
         links: %{
-          "Github" => "https://github.com/therealsmat/paystack",
+          "Github" => "https://github.com/therealsmat/paystack"
         }
       ],
       description: "An elixir library for paystack",
@@ -32,7 +32,7 @@ defmodule Paystack.MixProject do
   # Run "mix help compile.app" to learn about applications.
   def application do
     [
-      extra_applications: [:logger],
+      extra_applications: [:logger]
     ]
   end
 
@@ -53,16 +53,16 @@ defmodule Paystack.MixProject do
 
   defp groups_for_modules() do
     [
-      "Response": [Paystack.Response],
-      "Api": [Paystack.Api],
-      "Core": [
+      Response: [Paystack.Response],
+      Api: [Paystack.Api],
+      Core: [
         Paystack.Transaction,
         Paystack.Transfer,
         Paystack.Customer,
         Paystack.BulkCharge,
         Paystack.Charge
       ],
-      "Other": [
+      Other: [
         Paystack.SplitPayment,
         Paystack.DedicatedAccount,
         Paystack.ApplePay,

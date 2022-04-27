@@ -1,11 +1,11 @@
 defmodule Paystack.PaymentPage.Base do
-  @callback create(map) :: Paystack.Api.t
-  @callback list() :: Paystack.Api.t
-  @callback list(map | list) :: Paystack.Api.t
-  @callback fetch(String.t) :: Paystack.Api.t
-  @callback update(String.t, map) :: Paystack.Api.t
-  @callback check_slug_availability(String.t) :: Paystack.Api.t
-  @callback add_product(String.t, [integer]) :: Paystack.Api.t
+  @callback create(map) :: Paystack.Api.t()
+  @callback list() :: Paystack.Api.t()
+  @callback list(map | list) :: Paystack.Api.t()
+  @callback fetch(String.t()) :: Paystack.Api.t()
+  @callback update(String.t(), map) :: Paystack.Api.t()
+  @callback check_slug_availability(String.t()) :: Paystack.Api.t()
+  @callback add_product(String.t(), [integer]) :: Paystack.Api.t()
 end
 
 defmodule Paystack.PaymentPage do
@@ -58,5 +58,5 @@ defmodule Paystack.PaymentPage do
   """
   @impl true
   def add_product(page_id, product_ids),
-    do: paystack().post("/page/#{page_id}/product", %{ product: product_ids })
+    do: paystack().post("/page/#{page_id}/product", %{product: product_ids})
 end

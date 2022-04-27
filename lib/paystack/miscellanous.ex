@@ -1,8 +1,8 @@
 defmodule Paystack.Miscellanous.Base do
-  @callback list_banks(map | list) :: Paystack.Api.t
-  @callback list_providers(map | list) :: Paystack.Api.t
-  @callback list_countries() :: Paystack.Api.t
-  @callback list_states(map | list) :: Paystack.Api.t
+  @callback list_banks(map | list) :: Paystack.Api.t()
+  @callback list_providers(map | list) :: Paystack.Api.t()
+  @callback list_countries() :: Paystack.Api.t()
+  @callback list_states(map | list) :: Paystack.Api.t()
 end
 
 defmodule Paystack.Miscellanous do

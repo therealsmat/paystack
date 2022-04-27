@@ -1,6 +1,6 @@
 defmodule Paystack.ControlPanel.Base do
-  @callback fetch_payment_session_timeout() :: Paystack.Api.t
-  @callback update_payment_session_timeout(map) :: Paystack.Api.t
+  @callback fetch_payment_session_timeout() :: Paystack.Api.t()
+  @callback update_payment_session_timeout(map) :: Paystack.Api.t()
 end
 
 defmodule Paystack.ControlPanel do

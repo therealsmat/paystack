@@ -1,5 +1,4 @@
 defmodule Paystack do
-
   @moduledoc """
   Paystack
 

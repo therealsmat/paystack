@@ -1,12 +1,12 @@
 defmodule Paystack.Dispute.Base do
-  @callback list(map | list) :: Paystack.Api.t
-  @callback fetch(String.t) :: Paystack.Api.t
-  @callback list_transaction_disputes(String.t) :: Paystack.Api.t
-  @callback update(String.t, map) :: Paystack.Api.t
-  @callback add_evidence(String.t, map) :: Paystack.Api.t
-  @callback get_upload_url(String.t, String.t) :: Paystack.Api.t
-  @callback resolve(String, map) :: Paystack.Api.t
-  @callback export(map | list) :: Paystack.Api.t
+  @callback list(map | list) :: Paystack.Api.t()
+  @callback fetch(String.t()) :: Paystack.Api.t()
+  @callback list_transaction_disputes(String.t()) :: Paystack.Api.t()
+  @callback update(String.t(), map) :: Paystack.Api.t()
+  @callback add_evidence(String.t(), map) :: Paystack.Api.t()
+  @callback get_upload_url(String.t(), String.t()) :: Paystack.Api.t()
+  @callback resolve(String, map) :: Paystack.Api.t()
+  @callback export(map | list) :: Paystack.Api.t()
 end
 
 defmodule Paystack.Dispute do

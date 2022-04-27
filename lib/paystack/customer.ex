@@ -1,15 +1,15 @@
 defmodule Paystack.Customer.Base do
-  @callback create(map) :: Paystack.Api.t
-  @callback list() :: Paystack.Api.t
-  @callback list(list | map) :: Paystack.Api.t
-  @callback fetch(String.t) :: Paystack.Api.t
-  @callback update(String.t, map) :: Paystack.Api.t
-  @callback validate(String.t, map) :: Paystack.Api.t
-  @callback blacklist(String.t) :: Paystack.Api.t
-  @callback unblacklist(String.t) :: Paystack.Api.t
-  @callback whitelist(String.t) :: Paystack.Api.t
-  @callback unwhitelist(String.t) :: Paystack.Api.t
-  @callback deactivate_authorization(String.t) :: Paystack.Api.t
+  @callback create(map) :: Paystack.Api.t()
+  @callback list() :: Paystack.Api.t()
+  @callback list(list | map) :: Paystack.Api.t()
+  @callback fetch(String.t()) :: Paystack.Api.t()
+  @callback update(String.t(), map) :: Paystack.Api.t()
+  @callback validate(String.t(), map) :: Paystack.Api.t()
+  @callback blacklist(String.t()) :: Paystack.Api.t()
+  @callback unblacklist(String.t()) :: Paystack.Api.t()
+  @callback whitelist(String.t()) :: Paystack.Api.t()
+  @callback unwhitelist(String.t()) :: Paystack.Api.t()
+  @callback deactivate_authorization(String.t()) :: Paystack.Api.t()
 end
 
 defmodule Paystack.Customer do
@@ -56,7 +56,8 @@ defmodule Paystack.Customer do
   Validate a customer's identity
   """
   @impl true
-  def validate(customer_code, params), do: paystack().post("/customer/#{customer_code}/identification", params)
+  def validate(customer_code, params),
+    do: paystack().post("/customer/#{customer_code}/identification", params)
 
   @doc """
   Blacklist a customer on your integration.
@@ -87,10 +88,16 @@ defmodule Paystack.Customer do
   """
   @impl true
   def deactivate_authorization(authorization_code),
-    do: paystack().post("/customer/deactivate_authorization", %{ authorization_code: authorization_code })
+    do:
+      paystack().post("/customer/deactivate_authorization", %{
+        authorization_code: authorization_code
+      })
 
-  @spec set_risk_action(String.t, String.t) :: Paystack.Api.t
+  @spec set_risk_action(String.t(), String.t()) :: Paystack.Api.t()
   defp set_risk_action(email_or_customer_code, risk_action) do
-    paystack().post("/customer/set_risk_action", %{ customer: email_or_customer_code, risk_action: risk_action })
+    paystack().post("/customer/set_risk_action", %{
+      customer: email_or_customer_code,
+      risk_action: risk_action
+    })
   end
 end

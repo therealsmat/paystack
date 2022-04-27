@@ -3,7 +3,7 @@ defmodule PaystackProductTest do
   alias Paystack.Product
 
   test "create/1" do
-    params = %{ name: "Puff Puff", description: "Crispy flour ball with fluffy interior" }
+    params = %{name: "Puff Puff", description: "Crispy flour ball with fluffy interior"}
     assert_post_request_called_with("/product", params)
     Product.create(params)
   end
@@ -13,7 +13,7 @@ defmodule PaystackProductTest do
     Product.list()
 
     # With query params as map
-    query = %{ active: false, perPage: "100" }
+    query = %{active: false, perPage: "100"}
     assert_get_request_called_with("/product?active=false&perPage=100")
     Product.list(query)
 
@@ -29,7 +29,7 @@ defmodule PaystackProductTest do
   end
 
   test "update/2" do
-    params = %{ description: "Product Six Description" }
+    params = %{description: "Product Six Description"}
     assert_put_request_called_with("/product/526", params)
     Product.update(526, params)
   end

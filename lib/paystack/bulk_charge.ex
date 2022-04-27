@@ -1,11 +1,11 @@
 defmodule Paystack.BulkCharge.Base do
-  @callback initiate(list) :: Paystack.Api.t
-  @callback list_batches() :: Paystack.Api.t
-  @callback list_batches(map | list) :: Paystack.Api.t
-  @callback fetch_batch(String.t) :: Paystack.Api.t
-  @callback fetch_batch_charges(String.t) :: Paystack.Api.t
-  @callback pause_batch(String.t) :: Paystack.Api.t
-  @callback resume_batch(String.t) :: Paystack.Api.t
+  @callback initiate(list) :: Paystack.Api.t()
+  @callback list_batches() :: Paystack.Api.t()
+  @callback list_batches(map | list) :: Paystack.Api.t()
+  @callback fetch_batch(String.t()) :: Paystack.Api.t()
+  @callback fetch_batch_charges(String.t()) :: Paystack.Api.t()
+  @callback pause_batch(String.t()) :: Paystack.Api.t()
+  @callback resume_batch(String.t()) :: Paystack.Api.t()
 end
 
 defmodule Paystack.BulkCharge do
@@ -65,5 +65,5 @@ defmodule Paystack.BulkCharge do
   """
   @impl true
   def resume_batch(batch_code),
-      do: paystack().get("/bulkcharge/resume/#{batch_code}")
+    do: paystack().get("/bulkcharge/resume/#{batch_code}")
 end

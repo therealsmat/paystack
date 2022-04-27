@@ -3,13 +3,13 @@ defmodule PaystackTransferRecipientTest do
   alias Paystack.TransferRecipient
 
   test "create/1" do
-    params = %{ name: "Tolu Robert", account_number: "01000000010" }
+    params = %{name: "Tolu Robert", account_number: "01000000010"}
     assert_post_request_called_with("/transferrecipient", params)
     TransferRecipient.create(params)
   end
 
   test "bulk_create/1" do
-    params = %{ name: "Tolu Robert", account_number: "01000000010" }
+    params = %{name: "Tolu Robert", account_number: "01000000010"}
     assert_post_request_called_with("/transferrecipient/bulk", params)
     TransferRecipient.bulk_create(params)
   end
@@ -19,7 +19,7 @@ defmodule PaystackTransferRecipientTest do
     TransferRecipient.list()
 
     # With query params as map
-    query = %{ active: false, perPage: "100" }
+    query = %{active: false, perPage: "100"}
     assert_get_request_called_with("/transferrecipient?active=false&perPage=100")
     TransferRecipient.list(query)
 
@@ -35,7 +35,7 @@ defmodule PaystackTransferRecipientTest do
   end
 
   test "update/2" do
-    params = %{ description: "Product Six Description" }
+    params = %{description: "Product Six Description"}
     assert_put_request_called_with("/transferrecipient/526", params)
     TransferRecipient.update(526, params)
   end

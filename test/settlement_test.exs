@@ -7,7 +7,7 @@ defmodule PaystackSettlementTest do
     Settlement.fetch()
 
     # With query params as map
-    query = %{ active: false, perPage: "100" }
+    query = %{active: false, perPage: "100"}
     assert_get_request_called_with("/settlement?active=false&perPage=100")
     Settlement.fetch(query)
 
@@ -22,7 +22,7 @@ defmodule PaystackSettlementTest do
     Settlement.fetch_transactions("1234")
 
     # With query params as map
-    query = %{ active: false, perPage: "100" }
+    query = %{active: false, perPage: "100"}
     assert_get_request_called_with("/settlement/1234/transactions?active=false&perPage=100")
     Settlement.fetch_transactions("1234", query)
 

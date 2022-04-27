@@ -25,7 +25,7 @@ defmodule PaystackTransferTest do
     Transfer.list()
 
     # With query params as map
-    query = %{ active: false, perPage: "100" }
+    query = %{active: false, perPage: "100"}
     assert_get_request_called_with("/transfer?active=false&perPage=100")
     Transfer.list(query)
 

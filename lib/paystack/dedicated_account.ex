@@ -1,11 +1,11 @@
 defmodule Paystack.DedicatedAccount.Base do
-  @callback create(map) :: Paystack.Api.t
-  @callback list(map | list) :: Paystack.Api.t
-  @callback fetch(integer) :: Paystack.Api.t
-  @callback deactivate_account(integer) :: Paystack.Api.t
-  @callback split_transaction(map) :: Paystack.Api.t
-  @callback remove_split(String.t) :: Paystack.Api.t
-  @callback bank_providers :: Paystack.Api.t
+  @callback create(map) :: Paystack.Api.t()
+  @callback list(map | list) :: Paystack.Api.t()
+  @callback fetch(integer) :: Paystack.Api.t()
+  @callback deactivate_account(integer) :: Paystack.Api.t()
+  @callback split_transaction(map) :: Paystack.Api.t()
+  @callback remove_split(String.t()) :: Paystack.Api.t()
+  @callback bank_providers :: Paystack.Api.t()
 end
 
 defmodule Paystack.DedicatedAccount do
@@ -55,7 +55,7 @@ defmodule Paystack.DedicatedAccount do
   """
   @impl true
   def remove_split(account_number),
-    do: paystack().delete("/dedicated_account/split", %{ account_number: account_number })
+    do: paystack().delete("/dedicated_account/split", %{account_number: account_number})
 
   @doc """
   Get available bank providers for a dedicated virtual account

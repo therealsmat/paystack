@@ -1,9 +1,9 @@
 defmodule Paystack.Plan.Base do
-  @callback create(map) :: Paystack.Api.t
-  @callback list() :: Paystack.Api.t
-  @callback list(map | list) :: Paystack.Api.t
-  @callback fetch(String.t) :: Paystack.Api.t
-  @callback update(String.t, map) :: Paystack.Api.t
+  @callback create(map) :: Paystack.Api.t()
+  @callback list() :: Paystack.Api.t()
+  @callback list(map | list) :: Paystack.Api.t()
+  @callback fetch(String.t()) :: Paystack.Api.t()
+  @callback update(String.t(), map) :: Paystack.Api.t()
 end
 
 defmodule Paystack.Plan do

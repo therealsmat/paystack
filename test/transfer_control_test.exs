@@ -12,7 +12,7 @@ defmodule PaystackTransferControlTest do
     TransferControl.fetch_balance_ledger()
 
     # With query params as map
-    query = %{ active: false, perPage: "100" }
+    query = %{active: false, perPage: "100"}
     assert_get_request_called_with("/balance/ledger?active=false&perPage=100")
     TransferControl.fetch_balance_ledger(query)
 
@@ -23,7 +23,7 @@ defmodule PaystackTransferControlTest do
   end
 
   test "resend_otp/1" do
-    params = %{transfer_code: "TRF_vsyqdmlzble3uii", reason: "resend_otp" }
+    params = %{transfer_code: "TRF_vsyqdmlzble3uii", reason: "resend_otp"}
     assert_post_request_called_with("/transfer/resend_otp", params)
     TransferControl.resend_otp(params)
   end

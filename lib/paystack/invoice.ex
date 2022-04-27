@@ -1,14 +1,14 @@
 defmodule Paystack.Invoice.Base do
-  @callback create(map) :: Paystack.Api.t
-  @callback list() :: Paystack.Api.t
-  @callback list(map | list) :: Paystack.Api.t
-  @callback view(String.t) :: Paystack.Api.t
-  @callback verify(String.t) :: Paystack.Api.t
-  @callback send_notification(String.t) :: Paystack.Api.t
-  @callback total() :: Paystack.Api.t
-  @callback finalize(String.t) :: Paystack.Api.t
-  @callback update(String.t, map) :: Paystack.Api.t
-  @callback archive(String.t) :: Paystack.Api.t
+  @callback create(map) :: Paystack.Api.t()
+  @callback list() :: Paystack.Api.t()
+  @callback list(map | list) :: Paystack.Api.t()
+  @callback view(String.t()) :: Paystack.Api.t()
+  @callback verify(String.t()) :: Paystack.Api.t()
+  @callback send_notification(String.t()) :: Paystack.Api.t()
+  @callback total() :: Paystack.Api.t()
+  @callback finalize(String.t()) :: Paystack.Api.t()
+  @callback update(String.t(), map) :: Paystack.Api.t()
+  @callback archive(String.t()) :: Paystack.Api.t()
 end
 
 defmodule Paystack.Invoice do

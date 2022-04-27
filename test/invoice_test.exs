@@ -3,7 +3,11 @@ defmodule PaystackInvoiceTest do
   alias Paystack.Invoice
 
   test "create/1" do
-    params = %{ name: "Buttercup Brunch", description: "Gather your friends for the ritual that is brunch" }
+    params = %{
+      name: "Buttercup Brunch",
+      description: "Gather your friends for the ritual that is brunch"
+    }
+
     assert_post_request_called_with("/paymentrequest", params)
     Invoice.create(params)
   end
@@ -13,7 +17,7 @@ defmodule PaystackInvoiceTest do
     Invoice.list()
 
     # With query params as map
-    query = %{ active: false, perPage: "100" }
+    query = %{active: false, perPage: "100"}
     assert_get_request_called_with("/paymentrequest?active=false&perPage=100")
     Invoice.list(query)
 
@@ -49,9 +53,9 @@ defmodule PaystackInvoiceTest do
   end
 
   test "update/2" do
-    params = %{ description: "Product Six Description" }
+    params = %{description: "Product Six Description"}
     assert_put_request_called_with("/paymentrequest/123456", params)
-    Invoice.update(123456, params)
+    Invoice.update(123_456, params)
   end
 
   test "archive/1" do

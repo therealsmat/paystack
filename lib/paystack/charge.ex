@@ -1,11 +1,11 @@
 defmodule Paystack.Charge.Base do
-  @callback create(map) :: Paystack.Api.t
-  @callback submit_pin(map) :: Paystack.Api.t
-  @callback submit_otp(map) :: Paystack.Api.t
-  @callback submit_phone(map) :: Paystack.Api.t
-  @callback submit_birthday(map) :: Paystack.Api.t
-  @callback submit_address(map) :: Paystack.Api.t
-  @callback check_pending(String.t) :: Paystack.Api.t
+  @callback create(map) :: Paystack.Api.t()
+  @callback submit_pin(map) :: Paystack.Api.t()
+  @callback submit_otp(map) :: Paystack.Api.t()
+  @callback submit_phone(map) :: Paystack.Api.t()
+  @callback submit_birthday(map) :: Paystack.Api.t()
+  @callback submit_address(map) :: Paystack.Api.t()
+  @callback check_pending(String.t()) :: Paystack.Api.t()
 end
 
 defmodule Paystack.Charge do

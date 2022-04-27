@@ -3,7 +3,13 @@ defmodule PaystackSubAccountTest do
   alias Paystack.SubAccount
 
   test "create/1" do
-    params = %{ business_name: "Sunshine Studios", settlement_bank: "044", account_number: "0193274682", percentage_charge: 18.2 }
+    params = %{
+      business_name: "Sunshine Studios",
+      settlement_bank: "044",
+      account_number: "0193274682",
+      percentage_charge: 18.2
+    }
+
     assert_post_request_called_with("/subaccount", params)
     SubAccount.create(params)
   end
@@ -13,7 +19,7 @@ defmodule PaystackSubAccountTest do
     SubAccount.list()
 
     # With query params as map
-    query = %{ active: false, perPage: "100" }
+    query = %{active: false, perPage: "100"}
     assert_get_request_called_with("/subaccount?active=false&perPage=100")
     SubAccount.list(query)
 
@@ -29,7 +35,7 @@ defmodule PaystackSubAccountTest do
   end
 
   test "update/1" do
-    params = %{ name: "Updated Name", active: true }
+    params = %{name: "Updated Name", active: true}
     assert_put_request_called_with("/subaccount/asdf", params)
     SubAccount.update("asdf", params)
   end

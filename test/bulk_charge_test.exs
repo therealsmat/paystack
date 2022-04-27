@@ -7,6 +7,7 @@ defmodule PaystackBulkChargeTest do
       %{authorization: "AUTH_n95vpedf", amount: "2500"},
       %{authorization: "AUTH_ljdt4e4j", amount: "1500"}
     ]
+
     assert_post_request_called_with("/bulkcharge", params)
     BulkCharge.initiate(params)
   end
@@ -16,7 +17,7 @@ defmodule PaystackBulkChargeTest do
     BulkCharge.list_batches()
 
     # With query params as map
-    query = %{ active: false, perPage: "100" }
+    query = %{active: false, perPage: "100"}
     assert_get_request_called_with("/bulkcharge?active=false&perPage=100")
     BulkCharge.list_batches(query)
 
