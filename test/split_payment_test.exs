@@ -3,7 +3,7 @@ defmodule PaystackSplitPaymentTest do
   alias Paystack.SplitPayment
 
   test "create/1 - makes a post request to the correct paystack endpoint" do
-    params = %{ name: "Ezra Olubi", type: "percentage" }
+    params = %{name: "Ezra Olubi", type: "percentage"}
     assert_post_request_called_with("/split", params)
     SplitPayment.create(params)
   end
@@ -13,7 +13,7 @@ defmodule PaystackSplitPaymentTest do
     SplitPayment.list()
 
     # With query params as map
-    query = %{ active: false, perPage: "100" }
+    query = %{active: false, perPage: "100"}
     assert_get_request_called_with("/split?active=false&perPage=100")
     SplitPayment.list(query)
 
@@ -29,7 +29,7 @@ defmodule PaystackSplitPaymentTest do
   end
 
   test "update/2 - makes a put request to the correct paystack endpoint" do
-    params = %{ name: "Updated Name", active: true }
+    params = %{name: "Updated Name", active: true}
     assert_put_request_called_with("/split/asdf", params)
     SplitPayment.update("asdf", params)
   end
@@ -41,7 +41,10 @@ defmodule PaystackSplitPaymentTest do
   end
 
   test "remove_subaccount/2 - makes a post request to the correct paystack endpoint" do
-    assert_post_request_called_with("/split/asdf/subaccount/remove", %{ subaccount: "ACCT_hdl8abxl8drhrl3" })
+    assert_post_request_called_with("/split/asdf/subaccount/remove", %{
+      subaccount: "ACCT_hdl8abxl8drhrl3"
+    })
+
     SplitPayment.remove_subaccount("asdf", "ACCT_hdl8abxl8drhrl3")
   end
 end

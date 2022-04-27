@@ -3,7 +3,13 @@ defmodule PaystackPlanTest do
   alias Paystack.Plan
 
   test "create/1" do
-    params = %{ business_name: "Sunshine Studios", settlement_bank: "044", account_number: "0193274682", percentage_charge: 18.2 }
+    params = %{
+      business_name: "Sunshine Studios",
+      settlement_bank: "044",
+      account_number: "0193274682",
+      percentage_charge: 18.2
+    }
+
     assert_post_request_called_with("/plan", params)
     Plan.create(params)
   end
@@ -13,7 +19,7 @@ defmodule PaystackPlanTest do
     Plan.list()
 
     # With query params as map
-    query = %{ active: false, perPage: "100" }
+    query = %{active: false, perPage: "100"}
     assert_get_request_called_with("/plan?active=false&perPage=100")
     Plan.list(query)
 
@@ -29,7 +35,7 @@ defmodule PaystackPlanTest do
   end
 
   test "update/1" do
-    params = %{ name: "Updated Name", active: true }
+    params = %{name: "Updated Name", active: true}
     assert_put_request_called_with("/plan/asdf", params)
     Plan.update("asdf", params)
   end

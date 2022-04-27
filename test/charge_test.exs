@@ -33,7 +33,14 @@ defmodule PaystackChargeTest do
   end
 
   test "submit_address/1" do
-    params = %{address: "140 N 2ND ST", city: "Stroudsburg", state: "PA", zip_code: "18360", reference: "5bwib5v6anhe9xa"}
+    params = %{
+      address: "140 N 2ND ST",
+      city: "Stroudsburg",
+      state: "PA",
+      zip_code: "18360",
+      reference: "5bwib5v6anhe9xa"
+    }
+
     assert_post_request_called_with("/charge/submit_address", params)
     Charge.submit_address(params)
   end

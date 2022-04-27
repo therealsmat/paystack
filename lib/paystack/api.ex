@@ -1,13 +1,13 @@
 defmodule Paystack.Api.Behaviour do
-  @type paystack_response() :: {:error, any} | {:ok, Paystack.Response.t}
+  @type paystack_response() :: {:error, any} | {:ok, Paystack.Response.t()}
 
-  @callback get(String.t) :: paystack_response()
-  @callback post(String.t) :: paystack_response()
-  @callback post(String.t, map()) :: paystack_response()
-  @callback put(String.t) :: paystack_response()
-  @callback put(String.t, map()) :: paystack_response()
-  @callback delete(String.t) :: paystack_response()
-  @callback delete(String.t, map()) :: paystack_response()
+  @callback get(String.t()) :: paystack_response()
+  @callback post(String.t()) :: paystack_response()
+  @callback post(String.t(), map()) :: paystack_response()
+  @callback put(String.t()) :: paystack_response()
+  @callback put(String.t(), map()) :: paystack_response()
+  @callback delete(String.t()) :: paystack_response()
+  @callback delete(String.t(), map()) :: paystack_response()
 end
 
 defmodule Paystack.Api do
@@ -79,13 +79,15 @@ defmodule Paystack.Api do
 
   defp handle_response({:ok, %HTTPoison.Response{body: body, status_code: status_code}}) do
     body = Jason.decode!(body)
-    {:ok, %Response{
-      data: Map.get(body, "data"),
-      success: success_response?(Map.get(body, "status")),
-      message: Map.get(body, "message"),
-      meta: Map.get(body, "meta"),
-      status_code: status_code
-    }}
+
+    {:ok,
+     %Response{
+       data: Map.get(body, "data"),
+       success: success_response?(Map.get(body, "status")),
+       message: Map.get(body, "message"),
+       meta: Map.get(body, "meta"),
+       status_code: status_code
+     }}
   end
 
   defp handle_response({:error, %HTTPoison.Error{reason: reason}}) do
@@ -98,8 +100,8 @@ defmodule Paystack.Api do
 
   defp http_headers() do
     [
-      "Authorization": "Bearer #{Application.get_env(:paystack, :secret_key)}",
-      "Accept": "Application/json"
+      Authorization: "Bearer #{Application.get_env(:paystack, :secret_key)}",
+      Accept: "Application/json"
     ]
   end
 
@@ -111,7 +113,7 @@ defmodule Paystack.Api do
     end
   end
 
-  @spec with_telemetry(String.t, atom, function) :: t()
+  @spec with_telemetry(String.t(), atom, function) :: t()
   defp with_telemetry(route, request_type, fun) do
     :telemetry.span(
       [:paystack, :request],
@@ -119,10 +121,23 @@ defmodule Paystack.Api do
       fn ->
         case fun.() do
           {response_type, %{status_code: status_code}} = response ->
-            meta = %{ url: route, request_type: request_type, response_type: response_type, status_code: status_code }
+            meta = %{
+              url: route,
+              request_type: request_type,
+              response_type: response_type,
+              status_code: status_code
+            }
+
             {response, meta}
+
           _ = response ->
-            meta = %{ url: route, request_type: request_type, response_type: :error, status_code: nil }
+            meta = %{
+              url: route,
+              request_type: request_type,
+              response_type: :error,
+              status_code: nil
+            }
+
             {response, meta}
         end
       end

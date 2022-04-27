@@ -3,7 +3,7 @@ defmodule PaystackApplePayTest do
   alias Paystack.ApplePay
 
   test "register_domain/1" do
-    assert_post_request_called_with("/apple-pay/domain", %{ domainName: "example.com" })
+    assert_post_request_called_with("/apple-pay/domain", %{domainName: "example.com"})
     ApplePay.register_domain("example.com")
   end
 
@@ -13,7 +13,7 @@ defmodule PaystackApplePayTest do
   end
 
   test "unregister_domain/1" do
-    assert_delete_request_called_with("/apple-pay/domain", %{ domainName: "example.com" })
+    assert_delete_request_called_with("/apple-pay/domain", %{domainName: "example.com"})
     ApplePay.unregister_domain("example.com")
   end
 end

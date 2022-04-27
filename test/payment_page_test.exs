@@ -3,7 +3,11 @@ defmodule PaystackPaymentPageTest do
   alias Paystack.PaymentPage
 
   test "create/1" do
-    params = %{ name: "Buttercup Brunch", description: "Gather your friends for the ritual that is brunch" }
+    params = %{
+      name: "Buttercup Brunch",
+      description: "Gather your friends for the ritual that is brunch"
+    }
+
     assert_post_request_called_with("/page", params)
     PaymentPage.create(params)
   end
@@ -13,7 +17,7 @@ defmodule PaystackPaymentPageTest do
     PaymentPage.list()
 
     # With query params as map
-    query = %{ active: false, perPage: "100" }
+    query = %{active: false, perPage: "100"}
     assert_get_request_called_with("/page?active=false&perPage=100")
     PaymentPage.list(query)
 
@@ -29,7 +33,7 @@ defmodule PaystackPaymentPageTest do
   end
 
   test "update/2" do
-    params = %{ description: "PaymentPage Six Description" }
+    params = %{description: "PaymentPage Six Description"}
     assert_put_request_called_with("/page/526", params)
     PaymentPage.update(526, params)
   end
@@ -40,7 +44,7 @@ defmodule PaystackPaymentPageTest do
   end
 
   test "add_product/2" do
-    assert_post_request_called_with("/page/5nApBwZkvY/product", %{ product: [1234, 4567] })
+    assert_post_request_called_with("/page/5nApBwZkvY/product", %{product: [1234, 4567]})
     PaymentPage.add_product("5nApBwZkvY", [1234, 4567])
   end
 end

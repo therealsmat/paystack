@@ -1,5 +1,13 @@
+defmodule Paystack.Refund.Base do
+  @callback create(map) :: Paystack.Api.t()
+  @callback list(map | list) :: Paystack.Api.t()
+  @callback fetch(String.t()) :: Paystack.Api.t()
+end
+
 defmodule Paystack.Refund do
   import Paystack.Helpers, only: [paystack: 0]
+
+  @behaviour __MODULE__.Base
 
   @moduledoc """
   The Refunds API allows you create and manage transaction refunds
@@ -10,19 +18,19 @@ defmodule Paystack.Refund do
   @doc """
   Initiate a refund on your integration
   """
-  @spec create(map) :: Paystack.Api.t
+  @impl true
   def create(params), do: paystack().post("/refund", params)
 
   @doc """
   List refunds available on your integration.
   """
-  @spec list(map | list) :: Paystack.Api.t
+  @impl true
   def list(query_params),
     do: paystack().get("/refund?" <> URI.encode_query(query_params))
 
   @doc """
   Get details of a refund on your integration.
   """
-  @spec fetch(String.t) :: Paystack.Api.t
+  @impl true
   def fetch(reference), do: paystack().get("/refund/#{reference}")
 end

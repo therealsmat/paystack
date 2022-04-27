@@ -1,7 +1,7 @@
 defmodule PaystackEndpointHelper do
   # use ExUnit.Case
-  @callback assert_get_request_called_with(String.t) :: term
-  @callback assert_post_request_called_with(String.t, any()) :: term
+  @callback assert_get_request_called_with(String.t()) :: term
+  @callback assert_post_request_called_with(String.t(), any()) :: term
 
   defmacro __using__(_) do
     quote location: :keep do
@@ -14,13 +14,15 @@ defmodule PaystackEndpointHelper do
       end
 
       def assert_get_request_called_with(url) do
-        PaystackApiMock |> expect(:get, fn route ->
+        PaystackApiMock
+        |> expect(:get, fn route ->
           assert route == url
         end)
       end
 
       def assert_post_request_called_with(url, params) do
-        PaystackApiMock |> expect(:post, fn route, data ->
+        PaystackApiMock
+        |> expect(:post, fn route, data ->
           assert route == url
           assert data == params
         end)
@@ -32,20 +34,23 @@ defmodule PaystackEndpointHelper do
       end
 
       def assert_put_request_called_with(url, params) do
-        PaystackApiMock |> expect(:put, fn route, data ->
+        PaystackApiMock
+        |> expect(:put, fn route, data ->
           assert route == url
           assert data == params
         end)
       end
 
       def assert_delete_request_called_with(url) do
-        PaystackApiMock |> expect(:delete, fn route ->
+        PaystackApiMock
+        |> expect(:delete, fn route ->
           assert route == url
         end)
       end
 
       def assert_delete_request_called_with(url, params) do
-        PaystackApiMock |> expect(:delete, fn route, data ->
+        PaystackApiMock
+        |> expect(:delete, fn route, data ->
           assert route == url
           assert data == params
         end)

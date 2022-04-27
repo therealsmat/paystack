@@ -10,7 +10,7 @@ defmodule PaystackRefundTest do
 
   test "list" do
     # With query params as map
-    query = %{ active: false, perPage: "100" }
+    query = %{active: false, perPage: "100"}
     assert_get_request_called_with("/refund?active=false&perPage=100")
     Refund.list(query)
 

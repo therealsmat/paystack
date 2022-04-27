@@ -4,7 +4,7 @@ defmodule PaystackDisputeTest do
 
   test "list" do
     # With query params as map
-    query = %{ active: false, perPage: "100" }
+    query = %{active: false, perPage: "100"}
     assert_get_request_called_with("/dispute?active=false&perPage=100")
     Dispute.list(query)
 
