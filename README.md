@@ -12,7 +12,7 @@ This package requires Elixir `v1.12+`
 ### Installation
 Add the following to your `mix.exs` file
 ```elixir
-  {:paystack, "~> 0.6.0"}
+  {:paystack, "~> 0.7.0"}
 ```
 Then run `mix deps.get` to pull in the package
 
