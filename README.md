@@ -66,11 +66,11 @@ Your environment variable does not have to be `PAYSTACK_SECRET_KEY`, as the pack
   ## Telemetry
   This library executes the following telemetry events:
   * `[:paystack, :request, :start]` - Executed before sending a request
-  Measurements
-    * `system_time` - The system time
+    Measurements
+      * `system_time` - The system time
 
   * `[:paystack, :request, :stop]` - Executed after sending the final response
-  Measurements
+    Measurements
     * `duration` - The system time in `:native` unit
   
     Metadata
@@ -82,31 +82,7 @@ Your environment variable does not have to be `PAYSTACK_SECRET_KEY`, as the pack
   Happy coding!
 
 ### Testing
-Run `mix test`
+All modules implement a base behaviour. For instance, the `Paystack.Transaction` module implements a `Paystack.Transaction.Base` behaviour which makes it easy to mock with libraries such as https://hex.pm/packages/mox
 
 ### License
 MIT
-
-### TODO
-- [x] Transactions
-- [x] Transaction Splits
-- [x] Customers
-- [x] Dedicated Virtual Accounts
-- [x] Apple Pay
-- [x] Sub Accounts
-- [x] Plans
-- [x] Subscriptions
-- [x] Products
-- [x] Payment Pages
-- [x] Invoices
-- [x] Settlements
-- [x] Transfer Recipients
-- [x] Transfers
-- [x] Transfer Control
-- [x] Bulk Charges
-- [x] Control Panel
-- [x] Charge
-- [x] Disputes
-- [x] Refunds
-- [x] Verification
-- [x] Miscellaneous
