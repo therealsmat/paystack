@@ -14,6 +14,7 @@ end
 defmodule Paystack.Transaction do
   import Paystack.Helpers, only: [paystack: 0]
   @behaviour __MODULE__.Base
+  use Paystack.Fake
 
   @moduledoc """
   The Transactions API allows you create and manage payments on your integration.

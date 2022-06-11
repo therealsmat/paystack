@@ -16,4 +16,13 @@ defmodule PaystackApplePayTest do
     assert_delete_request_called_with("/apple-pay/domain", %{domainName: "example.com"})
     ApplePay.unregister_domain("example.com")
   end
+
+  test "fake/0" do
+    require ApplePay
+
+    ApplePay.fake()
+    ApplePay.list_domains()
+    ApplePay.assert_called(:list_domains, [])
+    ApplePay.restore()
+  end
 end
