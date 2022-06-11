@@ -12,6 +12,7 @@ defmodule Paystack.Transaction.Base do
 end
 
 defmodule Paystack.Transaction do
+  use Paystack.Fake
   import Paystack.Helpers, only: [paystack: 0]
   @behaviour __MODULE__.Base
 
