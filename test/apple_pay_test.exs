@@ -1,6 +1,11 @@
 defmodule PaystackApplePayTest do
   use PaystackEndpointHelper
   alias Paystack.ApplePay
+  require ApplePay
+
+  setup do
+    on_exit(&ApplePay.restore/0)
+  end
 
   test "register_domain/1" do
     assert_post_request_called_with("/apple-pay/domain", %{domainName: "example.com"})
@@ -18,11 +23,10 @@ defmodule PaystackApplePayTest do
   end
 
   test "fake/0" do
-    require ApplePay
-
     ApplePay.fake()
-    ApplePay.list_domains()
-    ApplePay.assert_called(:list_domains, [])
-    ApplePay.restore()
+    ApplePay.unregister_domain("tosinsoremekun.com")
+    ApplePay.assert_called(:unregister_domain, fn domain ->
+      assert domain == "tosinsoremekun.com"
+    end)
   end
 end
