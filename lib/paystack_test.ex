@@ -32,17 +32,30 @@ defmodule Paystack.Fake do
         Application.delete_env(:paystack, @me)
       end
 
-      defmacro assert_called(fun, times \\ 1, args) do
+      defmacro assert_called(name, times \\ 1, func) do
         quote do
-          calls = Server.find_call(unquote(@me), unquote(fun))
+          calls = Server.find_call(unquote(@me), unquote(name))
 
           refute calls == nil,
-                 ~s'Expected function "#{unquote(fun)}" to be called at least once, but it was called 0 times'
+                 ~s'Expected function "#{unquote(name)}" to be called at least once, but it was called 0 times'
 
           call_len = length(calls)
 
           assert call_len == unquote(times),
-                 ~s'Expected function "#{unquote(fun)}" to be called #{unquote(times)} times, but it was called #{call_len} times'
+                 ~s'Expected function "#{unquote(name)}" to be called #{unquote(times)} times, but it was called #{call_len} times'
+
+          arity = :erlang.fun_info(unquote(func))[:arity]
+
+          unless function_exported?(unquote(__MODULE__), unquote(name), arity) do
+            raise ArgumentError,
+                  "unknown function #{unquote(name)}/#{arity} for in #{inspect(unquote(__MODULE__))}"
+          end
+
+          args = Enum.find(calls, &(length(&1) == arity))
+
+          refute args == nil, ~s'The expected function #{unquote(name)}/#{arity} was not called'
+
+          apply(unquote(func), args)
         end
       end
 
