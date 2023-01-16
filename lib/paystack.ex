@@ -71,4 +71,34 @@ defmodule Paystack do
     * `response_type` - The library's response type (`:ok` or `:error`)
   Happy coding!
   """
+
+  defmacro __using__(_) do
+    quote location: :keep do
+      @before_compile unquote(__MODULE__)
+      import unquote(__MODULE__)
+    end
+  end
+
+  defmacro get(route) do
+    quote do
+      if Mix.env() == :dev do
+        {function, _} = __ENV__.function
+        Paystack.Fake.Server.start_link(module: __MODULE__)
+        Paystack.Fake.Server.record_call(__MODULE__, function, [])
+      else
+        Paystack.Api.get(unquote(route))
+      end
+    end
+  end
+
+  defmacro __before_compile__(_env) do
+    if Mix.env() == :dev do
+      quote do
+        def assert_called(func, args \\ [], times \\ 1) when is_list(args) do
+          calls = Paystack.Fake.Server.find_call(__MODULE__, func)
+          length(calls) == times
+        end
+      end
+    end
+  end
 end

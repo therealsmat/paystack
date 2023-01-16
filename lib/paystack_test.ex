@@ -110,7 +110,7 @@ defmodule Paystack.Fake.Server do
   def handle_cast({fun, args}, state) do
     state =
       if Map.has_key?(state, fun) do
-        Map.update!(state, fun, &[args | &1])
+        Map.update!(state, fun, &[args | &1] |> Enum.reverse())
       else
         Map.put(state, fun, [args])
       end
